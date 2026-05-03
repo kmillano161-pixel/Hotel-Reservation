@@ -67,17 +67,35 @@ const AdminDashboard = () => {
       return;
     }
     
-    // Calculate today's date (format: YYYY-MM-DD)
+// Calculate today's date (format: YYYY-MM-DD)
     const today = new Date().toISOString().split('T')[0];
     console.log('Today date:', today);
     
-    // Filter bookings for today - extract date part from check_in if it's ISO format
+    // Filter bookings for today - include all bookings relevant to today:
+    // - Check-ins today (new arrivals)
+    // - Check-outs today (departures)
+    // - Current stays (checking in before today and checking out after today)
     const todayBookings = bookings.filter(b => {
       let checkInDate = b.check_in;
+      let checkOutDate = b.check_out;
+      
+      // Parse dates if they include time component
       if (checkInDate && checkInDate.includes('T')) {
         checkInDate = checkInDate.split('T')[0];
       }
-      return checkInDate === today && (b.status === 'pending' || b.status === 'confirmed');
+      if (checkOutDate && checkOutDate.includes('T')) {
+        checkOutDate = checkOutDate.split('T')[0];
+      }
+      
+      // Include bookings that are not cancelled
+      if (b.status === 'cancelled') return false;
+      
+      // Today's bookings includes:
+      // 1. Check-ins today (new arrivals)
+      // 2. Check-outs today (departures)
+      // 3. Current stays (check-in <= today and check-out >= today)
+      return (checkInDate === today || checkOutDate === today || 
+        (checkInDate <= today && checkOutDate >= today));
     });
     console.log('Today bookings:', todayBookings.length);
     
@@ -137,7 +155,7 @@ const AdminDashboard = () => {
       {/* Stats Cards */}
       <div className="stats-grid">
         <div className="stat-card today">
-          <div className="stat-icon">📅</div>
+          
           <div className="stat-info">
             <h3>Today's Bookings</h3>
             <p className="stat-value">{stats.todayBookings}</p>
@@ -146,7 +164,7 @@ const AdminDashboard = () => {
         </div>
         
         <div className="stat-card rooms">
-          <div className="stat-icon">🏠</div>
+          
           <div className="stat-info">
             <h3>Total Rooms</h3>
             <p className="stat-value">{stats.totalRooms}</p>
@@ -155,7 +173,7 @@ const AdminDashboard = () => {
         </div>
         
         <div className="stat-card bookings">
-          <div className="stat-icon">📋</div>
+          
           <div className="stat-info">
             <h3>Total Bookings</h3>
             <p className="stat-value">{stats.totalBookings}</p>
@@ -164,7 +182,7 @@ const AdminDashboard = () => {
         </div>
         
         <div className="stat-card earnings">
-          <div className="stat-icon">💰</div>
+          <div className="stat-icon">$</div>
           <div className="stat-info">
             <h3>Total Earnings</h3>
             <p className="stat-value">${stats.totalEarnings.toLocaleString()}</p>
@@ -174,11 +192,12 @@ const AdminDashboard = () => {
       </div>
       
       {/* Quick Actions */}
+      
       <div className="dashboard-section">
         <h2>Quick Actions</h2>
         <div className="actions-grid">
           <NavLink to="/admin/add-room" className="action-card primary">
-            <div className="action-icon">➕</div>
+            <div className="action-icon">+</div>
             <div className="action-info">
               <h3>Add New Room</h3>
               <p>Create a new room listing</p>
@@ -186,7 +205,7 @@ const AdminDashboard = () => {
           </NavLink>
           
           <NavLink to="/admin/bookings" className="action-card secondary">
-            <div className="action-icon">📋</div>
+            <div className="action-icon">view</div>
             <div className="action-info">
               <h3>View All Bookings</h3>
               <p>Manage reservations</p>

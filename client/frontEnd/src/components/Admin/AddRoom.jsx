@@ -95,7 +95,7 @@ return (
             {/* Header */}
             <div className="add-room-header">
                 <div className="header-content">
-                    <div className="header-icon">🏠</div>
+                    
                     <div className="header-text">
                         <h1>Add New Room</h1>
                         <p>Create a new room listing for your hotel</p>
@@ -109,14 +109,14 @@ return (
             {/* Quick Info Cards */}
             <div className="quick-info-grid">
                 <div className="quick-info-card price">
-                    <div className="quick-info-icon">💰</div>
+                    <div className="quick-info-icon">$</div>
                     <div className="quick-info-text">
                         <h4>Set Your Price</h4>
                         <p>Price per night in USD</p>
                     </div>
                 </div>
                 <div className="quick-info-card capacity">
-                    <div className="quick-info-icon">👥</div>
+                    
                     <div className="quick-info-text">
                         <h4>Guest Capacity</h4>
                         <p>Maximum guests allowed</p>
@@ -281,7 +281,7 @@ return (
                             disabled={loading}
                             className={`btn btn-submit ${loading ? 'btn-loading' : ''}`}
                         >
-                            {loading ? 'Adding Room...' : '➕ Add Room'}
+                            {loading ? 'Adding Room...' : '+ Add Room'}
                         </button>
                     </div>
                 </form>

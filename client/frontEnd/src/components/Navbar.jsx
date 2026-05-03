@@ -53,17 +53,31 @@ function Navbar() {
              Hotel Reservation
           </NavLink>
         </div>
-        <ul className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
-          <li className="nav-item">
-            <NavLink 
-              to="/" 
-              className={({ isActive }) => 
-                `nav-link ${isActive ? 'active' : ''}`
-              }
-            >
-              Home
-            </NavLink>
-          </li>
+<ul className={`nav-menu ${isMobileMenuOpen ? 'active' : ''}`}>
+          {!isAdmin && (
+            <>
+              <li className="nav-item">
+                <NavLink 
+                  to="/" 
+                  className={({ isActive }) => 
+                    `nav-link ${isActive ? 'active' : ''}`
+                  }
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink 
+                  to="/about" 
+                  className={({ isActive }) => 
+                    `nav-link ${isActive ? 'active' : ''}`
+                  }
+                >
+                  About Us
+                </NavLink>
+              </li>
+            </>
+          )}
           <li className="nav-item">
             <NavLink 
               to="/rooms" 

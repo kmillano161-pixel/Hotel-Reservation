@@ -3,6 +3,7 @@ import { BookingProvider } from './context/useBooking';
 import { AuthProvider, useAuth } from './context/useAuth';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import About from './pages/About';
 import Rooms from './pages/Rooms';
 import BookingForm from './pages/BookingForm';
 import Registration from './pages/Registration';
@@ -31,7 +32,8 @@ function AppContent() {
       <Navbar />
       <main className="main-content">
         <Routes>
-          <Route path="/" element={<Home />} />
+<Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/rooms" element={<Rooms />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Registration />} />

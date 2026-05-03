@@ -12,11 +12,19 @@ function BookingForm() {
   
   const selectedRoom = location.state?.selectedRoom;
   
-const [formData, setFormData] = useState({
+const getTodayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+  
+  const [formData, setFormData] = useState({
     name: user?.name || '',
     email: user?.email || '',
     phone: '',
-    checkinDate: '',
+    checkinDate: getTodayDate(),
     checkinTime: '14:00',
     checkoutTime: '11:00',
     nights: 1,

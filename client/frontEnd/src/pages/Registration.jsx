@@ -166,7 +166,7 @@ const Registration = () => {
                 type="tel"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                placeholder="+1 234 567 8900"
+                placeholder="+63 912 345 6789"
                 style={{
                   width: '100%',
                   padding: '1rem 1.25rem',
