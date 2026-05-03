@@ -211,6 +211,14 @@ const AdminDashboard = () => {
               <p>Manage reservations</p>
             </div>
           </NavLink>
+          
+          <NavLink to="/admin/manage-rooms" className="action-card secondary">
+            <div className="action-icon">edit</div>
+            <div className="action-info">
+              <h3>Manage Rooms</h3>
+              <p>Edit and delete rooms</p>
+            </div>
+          </NavLink>
         </div>
       </div>
       

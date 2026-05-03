@@ -6,7 +6,7 @@ import '../styles/Rooms.css';
 
 function Rooms() {
   const { rooms, loading } = useBooking();
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const handleBook = (room) => {
@@ -65,13 +65,17 @@ function Rooms() {
                   <div className="room-size">{room.size || room.capacity || 'Standard'}</div>
                   <p>{room.description}</p>
                 </div>
-                <button
-                  className="room-book-btn"
-                  onClick={() => handleBook(room)}
-                  disabled={room.available === false}
-                >
-                  {isLoggedIn ? (room.available !== false ? 'Book Now' : 'Not Available') : 'Login to Book'}
-                </button>
+                {isAdmin ? (
+                  <span className="admin-note">Admin: Use Dashboard to Manage</span>
+                ) : (
+                  <button
+                    className="room-book-btn"
+                    onClick={() => handleBook(room)}
+                    disabled={room.available === false}
+                  >
+                    {isLoggedIn ? (room.available !== false ? 'Book Now' : 'Not Available') : 'Login to Book'}
+                  </button>
+                )}
               </div>
             </article>
           ))}

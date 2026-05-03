@@ -11,6 +11,7 @@ import Login from './components/Login';
 import AddRoom from './components/Admin/AddRoom';
 import Bookings from './components/Admin/Bookings';
 import AdminDashboard from './components/Admin/AdminDashboard';
+import ManageRooms from './components/Admin/ManageRooms';
 import './App.css';
 
 function AdminRoute({ children }) {
@@ -52,6 +53,11 @@ function AppContent() {
           <Route path="/admin/add-room" element={
             <AdminRoute>
               <AddRoom />
+            </AdminRoute>
+          } />
+          <Route path="/admin/manage-rooms" element={
+            <AdminRoute>
+              <ManageRooms />
             </AdminRoute>
           } />
           <Route path="/admin/bookings" element={
