@@ -5,7 +5,8 @@ import { useAuth } from '../../context/useAuth';
 import './AdminDashboard.css'; // Reuse styles
 
 const ManageRooms = () => {
-  const { rooms, fetchRooms, deleteRoom } = useBooking();
+  const bookingCtx = useBooking();
+  const { rooms, fetchRooms, deleteRoom, updateRoom } = bookingCtx;
   const { isAdmin } = useAuth();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -62,7 +63,7 @@ const ManageRooms = () => {
     
     setLoading(true);
     try {
-      const result = await useBooking().updateRoom(editingRoom.id, editForm);
+      const result = await updateRoom(editingRoom.id, editForm);
       if (result.success) {
         alert('Room updated successfully!');
         setEditingRoom(null);

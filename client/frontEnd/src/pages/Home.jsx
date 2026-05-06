@@ -81,7 +81,7 @@ const getCheckInDisplay = (booking) => {
     <div>
       <div className="hero-section">
         <div className="hero-content">
-          <h1 className="hero-title">Welcome to HotelReserve</h1>
+          <h1 className="hero-title">Welcome to Hotel Reservation</h1>
           <p className="hero-subtitle">Discover luxury, comfort, and exceptional service in our premium rooms. Your perfect stay awaits.</p>
           
           {!isLoggedIn ? (
