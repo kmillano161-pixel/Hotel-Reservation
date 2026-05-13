@@ -1,4 +1,7 @@
+@import './styles/design-system.css';
+
 /* PROFESSIONAL MODERN ROOMS PAGE DESIGN */
+
 
 * {
   margin: 0;
@@ -10,17 +13,224 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.6;
   color: #1f2937;
+
+  /* Default background (can be overridden by theme toggle) */
+  background-color: #f1f5f9;
+  background-image: var(--app-background-image, url('/src/assets/Background.png'));
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* Background themes */
+:root {
+  --app-background-image: url('/src/assets/Background.png');
+}
+
+body[data-theme='default'] {
+  --app-background-image: url('/src/assets/Background.png');
+}
+
+body[data-theme='light'] {
+  --app-background-image: none;
+  background-image: none;
   background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+}
+
+body[data-theme='dark'] {
+  --app-background-image: none;
+  background: radial-gradient(1000px 700px at 20% -10%, rgba(14, 165, 233, 0.18), transparent 55%),
+    radial-gradient(1000px 700px at 90% 0%, rgba(20, 184, 166, 0.14), transparent 60%),
+    #0b1220;
+  color: #e5e7eb;
+}
+
+/* Match UI surfaces when background is dark */
+body[data-theme='dark'] {
+  --ui-surface: rgba(17, 24, 39, 0.65);
+  --ui-surface-strong: rgba(17, 24, 39, 0.86);
+  --ui-border: rgba(255, 255, 255, 0.14);
+  --ui-muted: rgba(229, 231, 235, 0.75);
+}
+
+body[data-theme='dark'] .navbar {
+  background: rgba(11, 18, 32, 0.45);
+  box-shadow: 0 1px 10px rgba(0,0,0,0.35);
+}
+
+body[data-theme='dark'] .nav-logo-link,
+body[data-theme='dark'] .nav-link,
+body[data-theme='dark'] .dropdown-link {
+  color: #e5e7eb;
+}
+
+body[data-theme='dark'] .nav-link:hover {
+  color: #60a5fa;
+  background: rgba(239, 246, 255, 0.08);
+}
+
+body[data-theme='dark'] .dropdown-menu {
+  background: rgba(17, 24, 39, 0.98);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.45);
+}
+
+body[data-theme='dark'] .dropdown-link:hover {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+body[data-theme='dark'] .page-subtitle,
+body[data-theme='dark'] .room-details,
+body[data-theme='dark'] .room-type,
+body[data-theme='dark'] .room-content,
+body[data-theme='dark'] .section-title,
+body[data-theme='dark'] .recent-room-name,
+body[data-theme='dark'] .date-time-row .label,
+body[data-theme='dark'] .date-time-row .value {
+  color: #e5e7eb;
+}
+
+
+body[data-theme='dark'] .rooms-page {
+  background: transparent;
+}
+
+body[data-theme='dark'] .filter-btn,
+body[data-theme='dark'] .room-card,
+body[data-theme='dark'] .featured-card,
+body[data-theme='dark'] .recent-booking-card {
+  background: var(--ui-surface-strong);
+  border-color: var(--ui-border);
+  color: #e5e7eb;
+}
+
+body[data-theme='dark'] .filter-btn {
+  border-color: rgba(255,255,255,0.18);
+}
+
+body[data-theme='dark'] .filter-btn:hover,
+body[data-theme='dark'] .filter-btn.active {
+  background: rgba(37, 99, 235, 0.22);
+  color: #93c5fd;
+  border-color: rgba(59, 130, 246, 0.55);
+}
+
+body[data-theme='dark'] .room-feature {
+  background: rgba(255,255,255,0.08);
+  color: rgba(229,231,235,0.92);
+}
+
+body[data-theme='dark'] .room-book-btn,
+body[data-theme='dark'] .featured-cta,
+body[data-theme='dark'] .hero-cta {
+  box-shadow: 0 8px 26px rgba(59,130,246,0.25);
+}
+
+body[data-theme='dark'] .hero-cta {
+  background: rgba(229, 231, 235, 0.92);
+  color: #0b1220;
+}
+
+body[data-theme='dark'] .hero-cta-outline {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+
+/* Theme toggle UI */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  color: #111827;
+  padding: 0.65rem 1rem;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  line-height: 1;
+}
+
+body[data-theme='light'] .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(2, 132, 199, 0.18);
+  color: #0b1220;
+}
+
+body[data-theme='default'] .theme-toggle-btn {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(2, 132, 199, 0.18);
+  color: #0b1220;
+}
+
+body[data-theme='dark'] .theme-toggle-btn {
+  background: rgba(17, 24, 39, 0.7);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: #e5e7eb;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+
+.theme-toggle-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.09);
+}
+
+
+/* Theme toggle UI text */
+.theme-toggle-text {
+  font-weight: 900;
+  font-size: 0.95rem;
+  color: #0b1220;
+  margin-right: 0.15rem;
+  user-select: none;
+}
+
+body[data-theme='dark'] .theme-toggle-text {
+  color: #e5e7eb;
+}
+
+body[data-theme='light'] .theme-toggle-text {
+  color: #0b1220;
+}
+
+/* Theme toggle wrapper */
+.theme-toggle-wrapper {
+
+  position: sticky;
+  top: 72px;
+  z-index: 101;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.theme-toggle-wrapper .theme-toggle {
+  pointer-events: auto;
+  margin: 0.75rem 1rem;
+}
+
+@media (max-width: 768px) {
+  .theme-toggle-wrapper {
+    top: 64px;
+  }
 }
 
 /* Navbar */
 .navbar {
-  background: rgba(255,255,255,0.95);
+
+  background: transparent;
   backdrop-filter: blur(20px);
   box-shadow: 0 1px 10px rgba(0,0,0,0.08);
   position: sticky;
   top: 0;
   z-index: 100;
+  
 }
 
 .nav-container {
@@ -30,6 +240,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background: transparent;
 }
 
 .nav-logo-link {
@@ -252,8 +463,7 @@ body {
 
 /* Hero */
 .hero-section {
-  background: linear-gradient(135deg, rgba(59,130,246,0.9), rgba(16,185,129,0.8)), 
-              url('/src/assets/Background.png') center/cover;
+  
   color: white;
   padding: clamp(4rem,12vh,6rem) 1rem;
   text-align: center;
@@ -291,11 +501,14 @@ body {
   text-decoration: none;
   box-shadow: 0 8px 25px rgba(255,255,255,0.4);
   transition: all 0.3s ease;
+  animation: fadeInUp 0.8s ease-out 0.3s;
+  animation-fill-mode: both;
 }
 
 .hero-cta:hover {
   transform: translateY(-3px);
   box-shadow: 0 15px 35px rgba(255,255,255,0.35);
+  
 }
 
 /* Layout */

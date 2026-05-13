@@ -1,0 +1,138 @@
+:root {
+  /* Modern clean hotel palette (teal + blue) */
+  --hotel-bg: #f6fbff;
+  --hotel-surface: #ffffff;
+  --hotel-text: #0f172a;
+  --hotel-muted: #64748b;
+
+  --hotel-primary: #2563eb; /* blue */
+  --hotel-primary-2: #0ea5e9; /* sky */
+  --hotel-accent: #14b8a6; /* teal */
+  --hotel-accent-2: #0f766e;
+
+  --hotel-border: rgba(2, 132, 199, 0.18);
+  --hotel-shadow-sm: 0 8px 24px rgba(2, 132, 199, 0.08);
+  --hotel-shadow-md: 0 18px 50px rgba(2, 132, 199, 0.16);
+
+  --hotel-radius-lg: 22px;
+  --hotel-radius-md: 16px;
+  --hotel-radius-sm: 12px;
+
+  --hotel-focus: 0 0 0 4px rgba(14, 165, 233, 0.22);
+
+  --hotel-gradient-primary: linear-gradient(135deg, var(--hotel-primary) 0%, var(--hotel-primary-2) 100%);
+  --hotel-gradient-accent: linear-gradient(135deg, var(--hotel-accent) 0%, var(--hotel-accent-2) 100%);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, 'Apple Color Emoji', 'Segoe UI Emoji';
+  background: radial-gradient(1000px 700px at 20% -10%, rgba(14, 165, 233, 0.18), transparent 55%),
+    radial-gradient(1000px 700px at 90% 0%, rgba(20, 184, 166, 0.14), transparent 60%),
+    var(--hotel-bg);
+  color: var(--hotel-text);
+}
+
+a {
+  color: inherit;
+}
+
+/* Shared page/container spacing */
+.main-content {
+  padding: 2rem 1rem;
+}
+
+/* Shared section title */
+.hotel-section-title {
+  text-align: center;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 800;
+  margin-bottom: 2rem;
+  position: relative;
+  letter-spacing: -0.02em;
+}
+
+.hotel-section-title::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -0.75rem;
+  transform: translateX(-50%);
+  width: 64px;
+  height: 4px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--hotel-primary), var(--hotel-accent));
+}
+
+/* Shared hotel card */
+.hotel-card {
+  background: var(--hotel-surface);
+  border: 1px solid var(--hotel-border);
+  border-radius: var(--hotel-radius-lg);
+  box-shadow: var(--hotel-shadow-sm);
+}
+
+.hotel-card:hover {
+  box-shadow: var(--hotel-shadow-md);
+}
+
+/* Shared button */
+.hotel-btn {
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.hotel-btn:focus {
+  outline: none;
+  box-shadow: var(--hotel-focus);
+}
+
+.hotel-btn-primary {
+  background: var(--hotel-gradient-primary);
+  color: #fff;
+  padding: 0.9rem 1.35rem;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
+}
+
+.hotel-btn-primary:hover {
+  transform: translateY(-2px);
+  filter: saturate(1.05);
+}
+
+.hotel-btn-outline {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: #fff;
+  padding: 0.9rem 1.35rem;
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(90deg, rgba(148, 163, 184, 0.18) 25%, rgba(148, 163, 184, 0.32) 50%, rgba(148, 163, 184, 0.18) 75%);
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.4s infinite;
+}
+
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
