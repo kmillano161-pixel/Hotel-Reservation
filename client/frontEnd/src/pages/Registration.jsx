@@ -3,7 +3,8 @@ import { useAuth } from '../context/useAuth';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Registration = () => {
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -31,7 +32,14 @@ const Registration = () => {
       return;
     }
 
-    const result = await register(name, email, password, phone);
+    if (!firstName.trim() || !lastName.trim()) {
+      setError('First name and last name are required');
+      setLoading(false);
+      return;
+    }
+
+    const fullName = `${firstName.trim()} ${lastName.trim()}`;
+    const result = await register(fullName, email, password, phone);
     if (result.success) {
       setSuccess(true);
       setTimeout(() => {
@@ -98,13 +106,13 @@ const Registration = () => {
                 color: '#374151',
                 fontSize: '0.95rem'
               }}>
-                Full Name
+                First Name
               </label>
               <input
                 type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="John Doe"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                placeholder="John"
                 style={{
                   width: '100%',
                   padding: '1rem 1.25rem',
@@ -120,6 +128,38 @@ const Registration = () => {
                 required
               />
             </div>
+
+            <div>
+              <label style={{
+                display: 'block',
+                marginBottom: '0.5rem',
+                fontWeight: '600',
+                color: '#374151',
+                fontSize: '0.95rem'
+              }}>
+                Last Name
+              </label>
+              <input
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                placeholder="Doe"
+                style={{
+                  width: '100%',
+                  padding: '1rem 1.25rem',
+                  border: '2px solid #e2e8f0',
+                  borderRadius: '10px',
+                  fontSize: '1.1rem',
+                  transition: 'border-color 0.2s',
+                  backgroundColor: '#fafbff',
+                  color: 'black'
+                }}
+                onFocus={(e) => e.target.style.borderColor = '#3b82f6'}
+                onBlur={(e) => e.target.style.borderColor = '#e2e8f0'}
+                required
+              />
+            </div>
+
 
             <div>
               <label style={{

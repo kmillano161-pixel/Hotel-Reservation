@@ -37,10 +37,32 @@ const authenticateToken = async (req, res, next) => {
 
 // Register new user
 router.post('/register', asyncHandler(async (req, res) => {
-  const { name, email, password, phone } = req.body;
-  
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: 'Name, email and password are required' });
+  const { name, first_name, last_name, email, password, phone } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: 'Email and password are required' });
+  }
+
+  // Support both formats:
+  // 1) new UI: sends first_name + last_name
+  // 2) legacy: sends name
+  let resolvedFirst = first_name;
+  let resolvedLast = last_name;
+  if (!resolvedFirst || !resolvedLast) {
+    if (!name) {
+      return res.status(400).json({ message: 'Name is required' });
+    }
+    const parts = String(name).trim().split(/\s+/);
+    resolvedFirst = parts[0] || '';
+    resolvedLast = parts.slice(1).join(' ') || '';
+  } else {
+    // When first_name/last_name are provided by the new UI, normalize them
+    resolvedFirst = String(resolvedFirst).trim();
+    resolvedLast = String(resolvedLast).trim();
+  }
+
+  if (!resolvedFirst || !resolvedLast) {
+    return res.status(400).json({ message: 'First name and last name are required' });
   }
   
   // Check if user exists
@@ -54,8 +76,8 @@ router.post('/register', asyncHandler(async (req, res) => {
   
   // Insert user
   const [result] = await pool.query(
-    'INSERT INTO users (name, email, password, phone, role) VALUES (?, ?, ?, ?, ?)',
-    [name, email, hashedPassword, phone || '', 'user']
+    'INSERT INTO users (name, first_name, last_name, email, password, phone, role) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [resolvedFirst + ' ' + resolvedLast, resolvedFirst, resolvedLast, email, hashedPassword, phone || '', 'user']
   );
   
   res.status(201).json({ message: 'User registered successfully', userId: result.insertId });

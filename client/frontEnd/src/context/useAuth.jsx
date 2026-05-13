@@ -75,6 +75,8 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (name, email, password, phone) => {
     try {
+      // Backward-compatible: Registration page currently sends only `name`.
+      // This function can be extended later to send first_name/last_name if needed.
       const response = await fetch(`http://localhost:3007/api/auth/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

@@ -145,7 +145,8 @@ const createBooking = async (bookingData) => {
         check_in: bookingData.check_in,
         check_out: bookingData.check_out,
         guests: parseInt(bookingData.guests) || 1,
-        total_price: parseFloat(bookingData.total_price)
+        total_price: parseFloat(bookingData.total_price),
+        payment_method: bookingData.payment_method
       };
       
       const response = await fetch(`http://localhost:3007/api/bookings`, {

@@ -1,13 +1,10 @@
-# Hotel Reservation System - Admin Room Management Task
+# Hotel Reservation System - Implementation TODO
 
-## Steps to Complete:
+- [ ] Add online payment enforcement (credit/e-wallet) to booking creation (frontend + backend)
+- [ ] Auto-confirm booking on creation (status becomes `confirmed` immediately)
+- [ ] Strengthen double-booking prevention using DB transaction / overlap check
+- [ ] Update DB schema (bookings.payment_method, bookings.payment_status)
+- [ ] Block admin from changing status for auto-confirmed bookings (backend enforcement)
+- [ ] Update frontend admin logic if necessary (remove pending confirm/cancel expectations)
+- [ ] Run backend/frontend tests: overlapping booking + missing payment method
 
-### 1. [x] Create TODO.md with detailed steps ✅
-### 2. [x] Create client/frontEnd/src/components/Admin/ManageRooms.jsx - Room list with edit/delete UI ✅
-### 3. [x] Update client/frontEnd/src/App.jsx - Add AdminRoute for /admin/manage-rooms ✅
-### 4. [x] Update client/frontEnd/src/components/Admin/AdminDashboard.jsx - Add Manage Rooms quick action link ✅
-### 5. [x] Update client/frontEnd/src/pages/Rooms.jsx - Hide Book Now button for admins ✅
-### 6. [x] Test functionality and mark complete ✅
-### 7. [x] Use attempt_completion ✅
-
-*Admin-only room edit/delete implemented. Backend ready, frontend UI added.*

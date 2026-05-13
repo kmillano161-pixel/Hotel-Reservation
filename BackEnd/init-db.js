@@ -17,12 +17,21 @@ async function initDatabase() {
     CREATE TABLE IF NOT EXISTS users (
       id INT AUTO_INCREMENT PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
+      first_name VARCHAR(100) NOT NULL,
+      last_name VARCHAR(100) NOT NULL,
       email VARCHAR(255) UNIQUE NOT NULL,
       password VARCHAR(255) NOT NULL,
       phone VARCHAR(50),
       role ENUM('user', 'admin') DEFAULT 'user',
       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )
+  `);
+
+  // Backward-compatible schema upgrade (if users table already existed)
+  await connection.query(`
+    ALTER TABLE users
+      ADD COLUMN IF NOT EXISTS first_name VARCHAR(100) NOT NULL DEFAULT '',
+      ADD COLUMN IF NOT EXISTS last_name VARCHAR(100) NOT NULL DEFAULT ''
   `);
 
 // Create rooms table
@@ -40,7 +49,7 @@ async function initDatabase() {
     )
   `);
 
-// Create bookings table
+  // Create bookings table (and ensure payment columns exist)
   await connection.query(`
     CREATE TABLE IF NOT EXISTS bookings (
       id INT AUTO_INCREMENT PRIMARY KEY,
@@ -55,6 +64,13 @@ async function initDatabase() {
       FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
       FOREIGN KEY (room_id) REFERENCES rooms(id) ON DELETE CASCADE
     )
+  `);
+
+  // Backward-compatible schema upgrade (if bookings table already existed)
+  await connection.query(`
+    ALTER TABLE bookings
+      ADD COLUMN IF NOT EXISTS payment_method ENUM('credit_card','e_wallet') NOT NULL DEFAULT 'credit_card',
+      ADD COLUMN IF NOT EXISTS payment_status ENUM('paid','failed','refunded') DEFAULT 'paid'
   `);
 
   // Insert sample rooms

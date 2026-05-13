@@ -29,7 +29,8 @@ const getTodayDate = () => {
     checkoutTime: '11:00',
     nights: 1,
     specialRequests: '',
-    roomId: selectedRoom?.id || ''
+    roomId: selectedRoom?.id || '',
+    paymentMethod: '' // online only
   });
   
 const [totalPrice, setTotalPrice] = useState(0);
@@ -66,12 +67,15 @@ const validateForm = () => {
     if (!formData.email.trim() || !/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Valid email is required';
     if (!formData.checkinDate) newErrors.checkinDate = 'Check-in date is required';
     if (!formData.roomId) newErrors.roomId = 'Please select a room';
+    if (!formData.paymentMethod) newErrors.paymentMethod = 'Payment method is required (online only)';
+
     // Allow today or future dates (not past dates)
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     if (formData.checkinDate && new Date(formData.checkinDate) < today) {
       newErrors.checkinDate = 'Check-in date cannot be in the past';
     }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -102,7 +106,8 @@ const result = await createBooking({
       check_in: checkIn,
       check_out: checkOut.toISOString().split('T')[0],
       guests: 1,
-      total_price: totalPrice
+      total_price: totalPrice,
+      payment_method: formData.paymentMethod
     });
 
     if (result.success) {
@@ -214,7 +219,7 @@ if (submitted) {
             </div>
           </section>
 
-<section className="form-section">
+          <section className="form-section">
             <h3>Stay Details</h3>
             <div className="form-grid">
               <div className="form-field">
@@ -229,7 +234,7 @@ if (submitted) {
                 <label htmlFor="checkin-date">Check-in Date *</label>
                 {errors.checkinDate && <span className="error-message">{errors.checkinDate}</span>}
               </div>
-<div className="form-field">
+              <div className="form-field">
                 <input
                   id="checkin-time"
                   type="time"
@@ -266,6 +271,27 @@ if (submitted) {
                   <option value={30}>1 Month</option>
                 </select>
                 <label htmlFor="nights">Number of Nights *</label>
+              </div>
+            </div>
+          </section>
+
+          <section className="form-section">
+            <h3> Payment (Online Only)</h3>
+            <div className="form-grid">
+              <div className="form-field">
+                <label htmlFor="paymentMethod">Payment Method *</label>
+                <select
+                  id="paymentMethod"
+                  value={formData.paymentMethod}
+                  onChange={(e) => handleInputChange('paymentMethod', e.target.value)}
+                  className={errors.paymentMethod ? 'error' : ''}
+                  required
+                >
+                  <option value="">Select a payment method</option>
+                  <option value="credit_card">Credit Card</option>
+                  <option value="e_wallet">E-Wallet</option>
+                </select>
+                {errors.paymentMethod && <span className="error-message">{errors.paymentMethod}</span>}
               </div>
             </div>
           </section>
@@ -343,10 +369,9 @@ if (submitted) {
 
           <div className="booking-info">
             <h4> Booking Information</h4>
-            <ul>
+              <ul>
               <li>Free cancellation</li>
-              <li>Payment due at check-in</li>
-              
+              <li>Online payment confirmed (credit card / e-wallet)</li>
             </ul>
           </div>
         </form>
