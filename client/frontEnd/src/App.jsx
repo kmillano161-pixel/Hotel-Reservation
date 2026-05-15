@@ -14,6 +14,7 @@ import AddRoom from './components/Admin/AddRoom';
 import Bookings from './components/Admin/Bookings';
 import AdminDashboard from './components/Admin/AdminDashboard';
 import ManageRooms from './components/Admin/ManageRooms';
+import MyBookings from './pages/MyBookings';
 import './App.css';
 import './styles/design-system.css';
 
@@ -94,7 +95,13 @@ function AppContent() {
               <BookingForm />
             </RequireAuth>
           } />
-          
+
+          <Route path="/my-bookings" element={
+            <RequireAuth>
+              <MyBookings />
+            </RequireAuth>
+          } />
+
           <Route path="/admin" element={
             <AdminRoute>
               <AdminDashboard />

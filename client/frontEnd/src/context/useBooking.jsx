@@ -291,6 +291,35 @@ const createBooking = async (bookingData) => {
     }
   };
 
+  const cancelBooking = async (bookingId) => {
+    try {
+      const userData = JSON.parse(localStorage.getItem('user'));
+      if (!userData) {
+        return { success: false, message: 'Please login' };
+      }
+
+      const response = await fetch(`http://localhost:3007/api/bookings/${bookingId}/cancel`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...getAuthHeader()
+        }
+      });
+
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok) {
+        await fetchBookings();
+        return { success: true, message: data.message || 'Booking cancelled' };
+      }
+
+      return { success: false, message: data.message || 'Failed to cancel booking' };
+    } catch (error) {
+      console.error('Cancel booking error:', error);
+      return { success: false, message: 'Network error' };
+    }
+  };
+
   const value = {
     rooms,
     bookings,
@@ -302,7 +331,8 @@ const createBooking = async (bookingData) => {
     addRoom,
     updateRoom,
     deleteRoom,
-    updateBookingStatus
+    updateBookingStatus,
+    cancelBooking
   };
 
   return (

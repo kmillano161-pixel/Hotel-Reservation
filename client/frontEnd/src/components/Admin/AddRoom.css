@@ -1,10 +1,118 @@
 /* Add Room Page - Modern Admin Dashboard Design */
 
+:root{
+  --addroom-bg:#f8fafc;
+  --addroom-surface:#ffffff;
+  --addroom-card:#ffffff;
+  --addroom-text:#0f172a;
+  --addroom-muted:#64748b;
+  --addroom-border:#e2e8f0;
+  --addroom-field:#ffffff;
+  --addroom-field-bg:#ffffff;
+  --addroom-hint:#94a3b8;
+}
+
+body[data-theme='dark']{
+  --addroom-bg:transparent;
+  --addroom-surface:rgba(17,24,39,.65);
+  --addroom-card:rgba(17,24,39,.86);
+  --addroom-field:rgba(17,24,39,.65);
+  --addroom-field-bg:rgba(17,24,39,.65);
+  --addroom-text:#e5e7eb;
+  --addroom-muted:rgba(229,231,235,0.8);
+  --addroom-border:rgba(255,255,255,0.14);
+  --addroom-hint:rgba(229,231,235,0.6);
+}
+
+/* Dark theme: make Add Room input fields match the dark background */
+body[data-theme='dark'] .form-input,
+body[data-theme='dark'] .form-select,
+body[data-theme='dark'] .form-textarea,
+body[data-theme='dark'] .form-file {
+  background: var(--addroom-field-bg);
+  border-color: var(--addroom-border) !important;
+  color: var(--addroom-text);
+}
+
+body[data-theme='dark'] .form-input::placeholder,
+body[data-theme='dark'] .form-textarea::placeholder {
+  color: rgba(229, 231, 235, 0.55);
+}
+
+body[data-theme='dark'] .form-input:focus,
+body[data-theme='dark'] .form-select:focus,
+body[data-theme='dark'] .form-textarea:focus {
+  background: rgba(17, 24, 39, 0.75);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+body[data-theme='dark'] .form-file {
+  background: var(--addroom-field-bg);
+}
+
+/* Also style image preview + containers so they match dark background */
+body[data-theme='dark'] .file-input-container,
+body[data-theme='dark'] .image-preview-card,
+body[data-theme='dark'] .image-preview-info {
+  background: rgba(17, 24, 39, 0.65);
+  border-color: var(--addroom-border) !important;
+  color: var(--addroom-text);
+}
+
+body[data-theme='dark'] .image-preview-info h4 {
+  color: var(--addroom-text);
+}
+
+body[data-theme='dark'] .image-preview-info p,
+body[data-theme='dark'] .file-input-hint {
+  color: var(--addroom-hint);
+}
+
+/* Dark background for the quick info cards (Set Your Price / Guest Capacity) */
+body[data-theme='dark'] .quick-info-card{
+  background: rgba(17, 24, 39, 0.65);
+  border-color: var(--addroom-border) !important;
+}
+
+body[data-theme='dark'] .quick-info-icon{
+  background: rgba(17, 24, 39, 0.45);
+}
+
+body[data-theme='dark'] .quick-info-text h4,
+body[data-theme='dark'] .quick-info-text p{
+  color: var(--addroom-text) !important;
+}
+
+body[data-theme='dark'] .quick-info-text h4{
+  color: rgba(229, 231, 235, 0.85) !important;
+}
+
+
+body[data-theme='dark'] .remove-image-btn {
+  background: #7f1d1d;
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #fecaca;
+}
+
+body[data-theme='dark'] .remove-image-btn:hover {
+  background: #991b1b;
+}
+
+/* Ensure range/number spinners look ok against dark background */
+body[data-theme='dark'] input[type='number']::-webkit-outer-spin-button,
+body[data-theme='dark'] input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+
 .add-room-page {
   padding: 2rem;
   max-width: 1200px;
   margin: 0 auto;
-  background: #f8fafc;
+  background: var(--addroom-bg);
+  color: var(--addroom-text);
   min-height: calc(100vh - 80px);
 }
 
@@ -70,17 +178,17 @@
 
 /* Form Card Container */
 .add-room-card {
-  background: white;
+  background: var(--addroom-card);
   border-radius: 16px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--addroom-border);
   overflow: hidden;
 }
 
 .add-room-card-header {
   padding: 1.5rem 2rem;
-  background: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--addroom-bg);
+  border-bottom: 1px solid var(--addroom-border);
 }
 
 .add-room-card-header h2 {
@@ -93,7 +201,7 @@
 .add-room-card-header p {
   margin: 0.5rem 0 0;
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--addroom-muted);
 }
 
 /* Form Styles */
@@ -121,7 +229,7 @@
   display: block;
   font-size: 0.875rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--addroom-text);
   margin-bottom: 0.5rem;
   text-transform: uppercase;
   letter-spacing: 0.5px;

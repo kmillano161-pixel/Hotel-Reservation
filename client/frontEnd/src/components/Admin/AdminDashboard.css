@@ -1,11 +1,28 @@
 /* Admin Dashboard Styles */
 
+/* Theme aware variables for admin dashboard */
+:root{
+  --admin-bg:#f8fafc;
+  --admin-card:#ffffff;
+  --admin-card-border:#e2e8f0;
+  --admin-text:#0f172a;
+  --admin-muted:#64748b;
+}
+
+body[data-theme='dark']{
+  --admin-bg:rgba(17,24,39,.65);
+  --admin-card:rgba(17,24,39,.86);
+  --admin-card-border:rgba(255,255,255,0.14);
+  --admin-text:#e5e7eb;
+  --admin-muted:rgba(229,231,235,0.8);
+}
+
 /* Dashboard Container */
 .admin-dashboard {
   padding: 2rem;
   max-width: 1400px;
   margin: 0 auto;
-  background: #f8fafc;
+  background: var(--admin-bg);
   min-height: calc(100vh - 80px);
 }
 
@@ -61,10 +78,10 @@
   align-items: center;
   gap: 1rem;
   padding: 1.5rem;
-  background: white;
+  background: var(--admin-card);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--admin-card-border);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
@@ -96,7 +113,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f1f5f9;
+  background: rgba(148,163,184,0.22);
   border-radius: 12px;
 }
 
@@ -104,7 +121,7 @@
   margin: 0;
   font-size: 0.85rem;
   font-weight: 600;
-  color: #64748b;
+  color: var(--admin-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -112,13 +129,17 @@
 .stat-value {
   margin: 0.5rem 0 0;
   font-size: 1.75rem;
-  font-weight: 700;
-  color: #1e293b;
+  font-weight: 800;
+  color: var(--admin-text);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.06);
 }
 
 .stat-label {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--admin-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.35px;
+  font-weight: 700;
 }
 
 /* Dashboard Sections */
@@ -129,8 +150,8 @@
 .dashboard-section h2 {
   margin: 0 0 1rem;
   font-size: 1.25rem;
-  font-weight: 600;
-  color: #1e293b;
+  font-weight: 700;
+  color: var(--admin-text);
 }
 
 /* Actions Grid */
@@ -145,11 +166,11 @@
   align-items: center;
   gap: 1.25rem;
   padding: 1.5rem 2rem;
-  background: white;
+  background: var(--admin-card);
   border-radius: 12px;
   text-decoration: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--admin-card-border);
   transition: all 0.2s;
 }
 
@@ -173,22 +194,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f1f5f9;
+  background: rgba(148,163,184,0.18);
   border-radius: 10px;
 }
 
 .action-card h3 {
   margin: 0;
   font-size: 1.1rem;
-  font-weight: 600;
-  color: #1e293b;
+  font-weight: 750;
+  color: var(--admin-text);
 }
 
 .action-card p {
   margin: 0.25rem 0 0;
   font-size: 0.9rem;
-  color: #64748b;
+  color: var(--admin-muted);
+  font-weight: 600;
 }
+
 
 /* Bookings Table */
 /* Today's Reservations Section */
@@ -227,10 +250,10 @@
 
 /* Bookings Table */
 .bookings-table {
-  background: white;
+  background: var(--admin-card);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--admin-card-border);
   overflow: hidden;
 }
 

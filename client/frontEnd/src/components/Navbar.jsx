@@ -76,6 +76,16 @@ function Navbar() {
                   About Us
                 </NavLink>
               </li>
+              {isLoggedIn && (
+                <li className="nav-item">
+                  <NavLink 
+                    to="/my-bookings" 
+                    className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
+                  >
+                    My Bookings
+                  </NavLink>
+                </li>
+              )}
             </>
           )}
           <li className="nav-item">
